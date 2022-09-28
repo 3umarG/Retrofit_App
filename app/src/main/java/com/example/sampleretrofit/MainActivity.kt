@@ -31,13 +31,16 @@ class MainActivity : AppCompatActivity() {
 
         val call : Call<Model> = apiInterface.getModel(4)
 
-        call.enqueue(object : Callback<Model>{
-            override fun onResponse(call: Call<Model>, response: Response<Model>) {
-                tvTitle.text = response.body()?.title ?:"No Message Yet!!"
+        val allCalls : Call<List<Model>> = apiInterface.getAllPosts("2")
+
+
+        allCalls.enqueue(object : Callback<List<Model>>{
+            override fun onResponse(call: Call<List<Model>>, response: Response<List<Model>>) {
+                tvTitle.text = response.body()?.get(0)?.title ?: "Not yet"
             }
 
-            override fun onFailure(call: Call<Model>, t: Throwable) {
-                tvTitle.text = "Error !!!"
+            override fun onFailure(call: Call<List<Model>>, t: Throwable) {
+                tvTitle.text = t.message
             }
         })
 
