@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val apiInterface : ApiInterface = retrofitBuilder.create(ApiInterface::class.java)
 
 
-        val call : Call<Model> = apiInterface.getModel()
+        val call : Call<Model> = apiInterface.getModel(4)
 
         call.enqueue(object : Callback<Model>{
             override fun onResponse(call: Call<Model>, response: Response<Model>) {
