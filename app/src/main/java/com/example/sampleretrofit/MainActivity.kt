@@ -6,6 +6,7 @@ import android.view.Display
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,10 +33,15 @@ class MainActivity : AppCompatActivity() {
         btnPost = findViewById(R.id.btnPost)
         tvOutPut = findViewById(R.id.tvPostOutPut)
 
+        val client = OkHttpClient.Builder().apply {
+            addInterceptor(ApiInterceptor())
+        }.build()
+
 
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://jsonplaceholder.typicode.com/")
             .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
             .build()
 
 

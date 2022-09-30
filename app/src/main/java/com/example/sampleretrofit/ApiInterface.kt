@@ -27,4 +27,21 @@ interface ApiInterface {
     // TODO : POST by using Map , you can also create custom Model class to store my data then POST ...
     @POST("posts")
     fun postModel(@Body body: HashMap<Any, Any>): Call<Model>
+
+    @Headers("Authorization: 5555" , "Token: 1111","Platform: Android")
+    @GET("posts")
+    fun getPostsByHeaders() : Call<Model>
+
+
+    @GET("posts")
+    fun getPostsByHeaders2(
+        @HeaderMap map : Map<String,String>
+    ) : Call<Model>
+
+
+    @GET("posts")
+    fun getPostsByHeaders3(
+        @Header("Authorization") auth : String,
+        @Header("Token") token : String
+    ) : Call<Model>
 }
